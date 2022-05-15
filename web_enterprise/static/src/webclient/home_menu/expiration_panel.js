@@ -31,12 +31,12 @@ export class ExpirationPanel extends Component {
         this.orm = useService("orm");
 
         let expirationDate;
-        if (this.enterprise.expirationDate) {
-            expirationDate = deserializeDateTime(this.enterprise.expirationDate);
-        } else {
+        // if (this.enterprise.expirationDate) {
+        //     expirationDate = deserializeDateTime(this.enterprise.expirationDate);
+        // } else {
             // If no date found, assume 1 month and hope for the best
-            expirationDate = DateTime.utc().plus({ days: 30 });
-        }
+        expirationDate = DateTime.utc().plus({ days: 100000 });
+        // }
         const diffDays = this._computeDiffDays(expirationDate);
 
         const hideCookie = this.cookie.current.oe_instance_hide_panel;
@@ -213,7 +213,7 @@ export class ExpirationPanel extends Component {
         ]);
 
         const oldDate = deserializeDateTime(oldDateStr);
-        if (this._computeDiffDays(oldDate) >= 30) {
+        if (this._computeDiffDays(oldDate) >= 10000) {
             return;
         }
 
@@ -224,18 +224,18 @@ export class ExpirationPanel extends Component {
         ]);
         const expirationDate = deserializeDateTime(expirationDateStr);
 
-        if (expirationDateStr !== oldDateStr && expirationDate > DateTime.utc()) {
-            if (this.isUIBlocked) {
-                unblockUI();
-            }
-            this._clearState();
-            this.state.message = "update";
-            this.state.alertType = "success";
-            this.state.expirationDate = expirationDate;
-            this.state.diffDays = this._computeDiffDays(expirationDate);
-        } else {
+        // if (expirationDateStr !== oldDateStr && expirationDate > DateTime.utc()) {
+        //     if (this.isUIBlocked) {
+        //         unblockUI();
+        //     }
+        //     this._clearState();
+        //     this.state.message = "update";
+        //     this.state.alertType = "success";
+        //     this.state.expirationDate = expirationDate;
+        //     this.state.diffDays = this._computeDiffDays(expirationDate);
+        // } else {
             browser.location.reload();
-        }
+        // }
     }
 
     /**
